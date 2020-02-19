@@ -1,0 +1,2145 @@
+LAMMPS (7 Aug 2019)
+# -var l 2.8712 -var t 7100.0
+#------------------------------------------------
+shell mkdir coords
+WARNING: Shell command 'mkdir' failed with error 'File exists' (../input.cpp:1292)
+#------------------------------------------------
+variable i loop 10000 #число рестартов
+variable time_step equal 10000*$i
+variable time_step equal 10000*1
+#------------------------------------------------
+read_restart ./restarts/$t/${time_step}
+read_restart ./restarts/700/${time_step}
+read_restart ./restarts/700/10000
+  restoring atom style atomic from restart
+  orthogonal box = (0 0 0) to (34.4544 34.4544 34.4544)
+  1 by 1 by 1 MPI processor grid
+  pair style eam/fs stores no restart info
+  3457 atoms
+  read_restart CPU = 0.00171685 secs
+pair_style      eam/fs
+pair_coeff      * * ../Fe_mm.eam.fs Fe
+Reading potential file ../Fe_mm.eam.fs with DATE: 2007-06-11
+min_style cg
+minimize 1e-9 1e-9 5000 5000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (../min.cpp:168)
+Unused restart file peratom fix info:
+  fix style: STORE, fix ID: msd_COMPUTE_STORE
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 5.214 | 5.214 | 5.214 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   10000    669.01736   -13915.103            0   -13616.237   -1520.9674 
+   10044    669.01736   -14241.801            0   -13942.936   -20784.339 
+Loop time of 0.575888 on 1 procs for 44 steps with 3457 atoms
+
+98.8% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -13915.1026345     -14241.8010076     -14241.8010205
+  Force two-norm initial, final = 72.6565 0.0175669
+  Force max component initial, final = 2.90149 0.00430955
+  Final line search alpha, max atom move = 1 0.00430955
+  Iterations, force evaluations = 44 80
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.5673     | 0.5673     | 0.5673     |   0.0 | 98.51
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0026176  | 0.0026176  | 0.0026176  |   0.0 |  0.45
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.005967   |            |       |  1.04
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7062 ave 7062 max 7062 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    241232 ave 241232 max 241232 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 241232
+Ave neighs/atom = 69.7807
+Neighbor list builds = 0
+Dangerous builds = 0
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Per MPI rank memory allocation (min/avg/max) = 4.091 | 4.091 | 4.091 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   10044    669.01736   -14241.801            0   -13942.936   -20784.339 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3457 atoms
+
+104.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7290 ave 7290 max 7290 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 235167
+Ave neighs/atom = 68.0263
+Neighbor list builds = 0
+Dangerous builds = 0
+compute cna all cna/atom 3.45
+compute 2 all reduce sum c_cna
+thermo_style    custom step temp pe c_2
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+  (2) compute cna/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 4.92 | 4.92 | 4.92 Mbytes
+Step Temp PotEng c_2 
+   10044    669.01736   -14241.801        10407 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3457 atoms
+
+104.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7290 ave 7290 max 7290 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+#------------------------------------------------
+variable cnat atom "c_cna != 3.0"
+group sia_surround variable cnat
+18 atoms in group sia_surround
+compute comV sia_surround com
+# compute un_x sia_surround property/atom xu
+# compute med_xu sia_surround reduce ave xu
+# compute med_x sia_surround reduce ave x
+# variable med_xu equal c_med_xu
+# variable med_x equal c_med_xu
+variable comX equal c_comV[1]
+variable comY equal c_comV[2]
+variable comZ equal c_comV[3]
+variable time equal ${time_step}/1000
+variable time equal 10000/1000
+fix useless all print 1 "${time};${comX};${comY};${comZ};" file "useless" screen no title ''
+run 1
+Per MPI rank memory allocation (min/avg/max) = 7.636 | 7.636 | 7.636 Mbytes
+Step Temp PotEng c_2 
+   10044    669.01736   -14241.801        10407 
+   10045    669.01736   -14241.801        10407 
+Loop time of 0.0308959 on 1 procs for 1 steps with 3457 atoms
+
+Performance: 2.796 ns/day, 8.582 hours/ns, 32.367 timesteps/s
+86.6% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.013162   | 0.013162   | 0.013162   |   0.0 | 42.60
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0001018  | 0.0001018  | 0.0001018  |   0.0 |  0.33
+Output  | 0.017527   | 0.017527   | 0.017527   |   0.0 | 56.73
+Modify  | 8.2016e-05 | 8.2016e-05 | 8.2016e-05 |   0.0 |  0.27
+Other   |            | 2.289e-05  |            |       |  0.07
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7290 ave 7290 max 7290 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+print "${time};${comX};${comY};${comZ}" append coords/coords_$t
+print "${time};${comX};${comY};${comZ}" append coords/coords_700
+10;7.18038375443543;24.4028011873191;7.18031135207525
+clear
+next i
+jump restart_to_data.lmp
+# -var l 2.8712 -var t 7100.0
+#------------------------------------------------
+shell mkdir coords
+WARNING: Shell command 'mkdir' failed with error 'File exists' (../input.cpp:1292)
+#------------------------------------------------
+variable i loop 10000 #число рестартов
+variable time_step equal 10000*$i
+variable time_step equal 10000*2
+#------------------------------------------------
+read_restart ./restarts/$t/${time_step}
+read_restart ./restarts/700/${time_step}
+read_restart ./restarts/700/20000
+  restoring atom style atomic from restart
+  orthogonal box = (0 0 0) to (34.4544 34.4544 34.4544)
+  1 by 1 by 1 MPI processor grid
+  pair style eam/fs stores no restart info
+  3457 atoms
+  read_restart CPU = 0.00706291 secs
+pair_style      eam/fs
+pair_coeff      * * ../Fe_mm.eam.fs Fe
+Reading potential file ../Fe_mm.eam.fs with DATE: 2007-06-11
+min_style cg
+minimize 1e-9 1e-9 5000 5000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (../min.cpp:168)
+Unused restart file peratom fix info:
+  fix style: STORE, fix ID: msd_COMPUTE_STORE
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 5.181 | 5.181 | 5.181 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   20000    682.65106   -13921.195            0   -13616.239   -1434.9495 
+   20057    682.65106   -14241.801            0   -13936.845   -20625.225 
+Loop time of 0.77747 on 1 procs for 57 steps with 3457 atoms
+
+97.4% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -13921.1952173     -14241.8010409     -14241.8010542
+  Force two-norm initial, final = 72.3488 0.0126962
+  Force max component initial, final = 2.73619 0.00357831
+  Final line search alpha, max atom move = 1 0.00357831
+  Iterations, force evaluations = 57 107
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.76479    | 0.76479    | 0.76479    |   0.0 | 98.37
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0038869  | 0.0038869  | 0.0038869  |   0.0 |  0.50
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.00879    |            |       |  1.13
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7047 ave 7047 max 7047 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    241148 ave 241148 max 241148 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 241148
+Ave neighs/atom = 69.7564
+Neighbor list builds = 0
+Dangerous builds = 0
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Per MPI rank memory allocation (min/avg/max) = 4.102 | 4.102 | 4.102 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   20057    682.65106   -14241.801            0   -13936.845   -20625.225 
+Loop time of 0 on 1 procs for 0 steps with 3457 atoms
+
+0.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0          |            |       |  0.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7290 ave 7290 max 7290 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 235167
+Ave neighs/atom = 68.0263
+Neighbor list builds = 0
+Dangerous builds = 0
+compute cna all cna/atom 3.45
+compute 2 all reduce sum c_cna
+thermo_style    custom step temp pe c_2
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+  (2) compute cna/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 4.93 | 4.93 | 4.93 Mbytes
+Step Temp PotEng c_2 
+   20057    682.65106   -14241.801        10407 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3457 atoms
+
+104.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7290 ave 7290 max 7290 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+#------------------------------------------------
+variable cnat atom "c_cna != 3.0"
+group sia_surround variable cnat
+18 atoms in group sia_surround
+compute comV sia_surround com
+# compute un_x sia_surround property/atom xu
+# compute med_xu sia_surround reduce ave xu
+# compute med_x sia_surround reduce ave x
+# variable med_xu equal c_med_xu
+# variable med_x equal c_med_xu
+variable comX equal c_comV[1]
+variable comY equal c_comV[2]
+variable comZ equal c_comV[3]
+variable time equal ${time_step}/1000
+variable time equal 20000/1000
+fix useless all print 1 "${time};${comX};${comY};${comZ};" file "useless" screen no title ''
+run 1
+Per MPI rank memory allocation (min/avg/max) = 7.646 | 7.646 | 7.646 Mbytes
+Step Temp PotEng c_2 
+   20057    682.65106   -14241.801        10407 
+   20058    682.65106   -14241.801        10407 
+Loop time of 0.024878 on 1 procs for 1 steps with 3457 atoms
+
+Performance: 3.473 ns/day, 6.911 hours/ns, 40.196 timesteps/s
+98.3% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0073569  | 0.0073569  | 0.0073569  |   0.0 | 29.57
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 4.9114e-05 | 4.9114e-05 | 4.9114e-05 |   0.0 |  0.20
+Output  | 0.017391   | 0.017391   | 0.017391   |   0.0 | 69.90
+Modify  | 6.7949e-05 | 6.7949e-05 | 6.7949e-05 |   0.0 |  0.27
+Other   |            | 1.311e-05  |            |       |  0.05
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7290 ave 7290 max 7290 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+print "${time};${comX};${comY};${comZ}" append coords/coords_$t
+print "${time};${comX};${comY};${comZ}" append coords/coords_700
+20;7.18059753548844;24.4026176998571;4.30994080009918
+clear
+next i
+jump restart_to_data.lmp
+# -var l 2.8712 -var t 7100.0
+#------------------------------------------------
+shell mkdir coords
+WARNING: Shell command 'mkdir' failed with error 'File exists' (../input.cpp:1292)
+#------------------------------------------------
+variable i loop 10000 #число рестартов
+variable time_step equal 10000*$i
+variable time_step equal 10000*3
+#------------------------------------------------
+read_restart ./restarts/$t/${time_step}
+read_restart ./restarts/700/${time_step}
+read_restart ./restarts/700/30000
+  restoring atom style atomic from restart
+  orthogonal box = (0 0 0) to (34.4544 34.4544 34.4544)
+  1 by 1 by 1 MPI processor grid
+  pair style eam/fs stores no restart info
+  3457 atoms
+  read_restart CPU = 0.00728989 secs
+pair_style      eam/fs
+pair_coeff      * * ../Fe_mm.eam.fs Fe
+Reading potential file ../Fe_mm.eam.fs with DATE: 2007-06-11
+min_style cg
+minimize 1e-9 1e-9 5000 5000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (../min.cpp:168)
+Unused restart file peratom fix info:
+  fix style: STORE, fix ID: msd_COMPUTE_STORE
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 5.213 | 5.213 | 5.213 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   30000    673.98067   -13917.321            0   -13616.238   -1112.6996 
+   30052    673.98067   -14241.801            0   -13940.718   -20726.378 
+Loop time of 0.760819 on 1 procs for 52 steps with 3457 atoms
+
+90.1% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         -13917.320861     -14241.8010299     -14241.8010431
+  Force two-norm initial, final = 73.1707 0.013637
+  Force max component initial, final = 3.01531 0.00446627
+  Final line search alpha, max atom move = 1 0.00446627
+  Iterations, force evaluations = 52 95
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.75017    | 0.75017    | 0.75017    |   0.0 | 98.60
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0032458  | 0.0032458  | 0.0032458  |   0.0 |  0.43
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.007403   |            |       |  0.97
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7034 ave 7034 max 7034 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    241383 ave 241383 max 241383 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 241383
+Ave neighs/atom = 69.8244
+Neighbor list builds = 0
+Dangerous builds = 0
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Per MPI rank memory allocation (min/avg/max) = 4.09 | 4.09 | 4.09 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   30052    673.98067   -14241.801            0   -13940.718   -20726.378 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3457 atoms
+
+104.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7288 ave 7288 max 7288 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 235167
+Ave neighs/atom = 68.0263
+Neighbor list builds = 0
+Dangerous builds = 0
+compute cna all cna/atom 3.45
+compute 2 all reduce sum c_cna
+thermo_style    custom step temp pe c_2
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+  (2) compute cna/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 4.919 | 4.919 | 4.919 Mbytes
+Step Temp PotEng c_2 
+   30052    673.98067   -14241.801        10407 
+Loop time of 1.19209e-06 on 1 procs for 0 steps with 3457 atoms
+
+83.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 1.192e-06  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7288 ave 7288 max 7288 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+#------------------------------------------------
+variable cnat atom "c_cna != 3.0"
+group sia_surround variable cnat
+18 atoms in group sia_surround
+compute comV sia_surround com
+# compute un_x sia_surround property/atom xu
+# compute med_xu sia_surround reduce ave xu
+# compute med_x sia_surround reduce ave x
+# variable med_xu equal c_med_xu
+# variable med_x equal c_med_xu
+variable comX equal c_comV[1]
+variable comY equal c_comV[2]
+variable comZ equal c_comV[3]
+variable time equal ${time_step}/1000
+variable time equal 30000/1000
+fix useless all print 1 "${time};${comX};${comY};${comZ};" file "useless" screen no title ''
+run 1
+Per MPI rank memory allocation (min/avg/max) = 7.635 | 7.635 | 7.635 Mbytes
+Step Temp PotEng c_2 
+   30052    673.98067   -14241.801        10407 
+   30053    673.98067   -14241.801        10407 
+Loop time of 0.0284638 on 1 procs for 1 steps with 3457 atoms
+
+Performance: 3.035 ns/day, 7.907 hours/ns, 35.132 timesteps/s
+83.2% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0086379  | 0.0086379  | 0.0086379  |   0.0 | 30.35
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 4.6015e-05 | 4.6015e-05 | 4.6015e-05 |   0.0 |  0.16
+Output  | 0.019699   | 0.019699   | 0.019699   |   0.0 | 69.21
+Modify  | 6.6996e-05 | 6.6996e-05 | 6.6996e-05 |   0.0 |  0.24
+Other   |            | 1.383e-05  |            |       |  0.05
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7288 ave 7288 max 7288 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+print "${time};${comX};${comY};${comZ}" append coords/coords_$t
+print "${time};${comX};${comY};${comZ}" append coords/coords_700
+30;5.74516038593378;11.486122534283;2.87508357310544
+clear
+next i
+jump restart_to_data.lmp
+# -var l 2.8712 -var t 7100.0
+#------------------------------------------------
+shell mkdir coords
+WARNING: Shell command 'mkdir' failed with error 'File exists' (../input.cpp:1292)
+#------------------------------------------------
+variable i loop 10000 #число рестартов
+variable time_step equal 10000*$i
+variable time_step equal 10000*4
+#------------------------------------------------
+read_restart ./restarts/$t/${time_step}
+read_restart ./restarts/700/${time_step}
+read_restart ./restarts/700/40000
+  restoring atom style atomic from restart
+  orthogonal box = (0 0 0) to (34.4544 34.4544 34.4544)
+  1 by 1 by 1 MPI processor grid
+  pair style eam/fs stores no restart info
+  3457 atoms
+  read_restart CPU = 0.00662804 secs
+pair_style      eam/fs
+pair_coeff      * * ../Fe_mm.eam.fs Fe
+Reading potential file ../Fe_mm.eam.fs with DATE: 2007-06-11
+min_style cg
+minimize 1e-9 1e-9 5000 5000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (../min.cpp:168)
+Unused restart file peratom fix info:
+  fix style: STORE, fix ID: msd_COMPUTE_STORE
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 5.212 | 5.212 | 5.212 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   40000    674.19263   -13917.416            0   -13616.239   -1034.9671 
+   40074    674.19263   -14241.801            0   -13940.624   -20723.983 
+Loop time of 1.1391 on 1 procs for 74 steps with 3457 atoms
+
+89.6% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -13917.4162889     -14241.8010249     -14241.8010384
+  Force two-norm initial, final = 73.5658 0.0135862
+  Force max component initial, final = 3.04282 0.00268729
+  Final line search alpha, max atom move = 1 0.00268729
+  Iterations, force evaluations = 74 140
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 1.1191     | 1.1191     | 1.1191     |   0.0 | 98.24
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0061023  | 0.0061023  | 0.0061023  |   0.0 |  0.54
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.01391    |            |       |  1.22
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    6991 ave 6991 max 6991 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    241179 ave 241179 max 241179 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 241179
+Ave neighs/atom = 69.7654
+Neighbor list builds = 0
+Dangerous builds = 0
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Per MPI rank memory allocation (min/avg/max) = 4.089 | 4.089 | 4.089 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   40074    674.19263   -14241.801            0   -13940.624   -20723.983 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3457 atoms
+
+0.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7292 ave 7292 max 7292 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 235167
+Ave neighs/atom = 68.0263
+Neighbor list builds = 0
+Dangerous builds = 0
+compute cna all cna/atom 3.45
+compute 2 all reduce sum c_cna
+thermo_style    custom step temp pe c_2
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+  (2) compute cna/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 4.918 | 4.918 | 4.918 Mbytes
+Step Temp PotEng c_2 
+   40074    674.19263   -14241.801        10407 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3457 atoms
+
+104.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7292 ave 7292 max 7292 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+#------------------------------------------------
+variable cnat atom "c_cna != 3.0"
+group sia_surround variable cnat
+18 atoms in group sia_surround
+compute comV sia_surround com
+# compute un_x sia_surround property/atom xu
+# compute med_xu sia_surround reduce ave xu
+# compute med_x sia_surround reduce ave x
+# variable med_xu equal c_med_xu
+# variable med_x equal c_med_xu
+variable comX equal c_comV[1]
+variable comY equal c_comV[2]
+variable comZ equal c_comV[3]
+variable time equal ${time_step}/1000
+variable time equal 40000/1000
+fix useless all print 1 "${time};${comX};${comY};${comZ};" file "useless" screen no title ''
+run 1
+Per MPI rank memory allocation (min/avg/max) = 7.634 | 7.634 | 7.634 Mbytes
+Step Temp PotEng c_2 
+   40074    674.19263   -14241.801        10407 
+   40075    674.19263   -14241.801        10407 
+Loop time of 0.030906 on 1 procs for 1 steps with 3457 atoms
+
+Performance: 2.796 ns/day, 8.585 hours/ns, 32.356 timesteps/s
+84.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0075409  | 0.0075409  | 0.0075409  |   0.0 | 24.40
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 4.2915e-05 | 4.2915e-05 | 4.2915e-05 |   0.0 |  0.14
+Output  | 0.023189   | 0.023189   | 0.023189   |   0.0 | 75.03
+Modify  | 0.00011897 | 0.00011897 | 0.00011897 |   0.0 |  0.38
+Other   |            | 1.407e-05  |            |       |  0.05
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7292 ave 7292 max 7292 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+print "${time};${comX};${comY};${comZ}" append coords/coords_$t
+print "${time};${comX};${comY};${comZ}" append coords/coords_700
+40;7.18052395469737;18.6618720485077;19.6248276424465
+clear
+next i
+jump restart_to_data.lmp
+# -var l 2.8712 -var t 7100.0
+#------------------------------------------------
+shell mkdir coords
+WARNING: Shell command 'mkdir' failed with error 'File exists' (../input.cpp:1292)
+#------------------------------------------------
+variable i loop 10000 #число рестартов
+variable time_step equal 10000*$i
+variable time_step equal 10000*5
+#------------------------------------------------
+read_restart ./restarts/$t/${time_step}
+read_restart ./restarts/700/${time_step}
+read_restart ./restarts/700/50000
+  restoring atom style atomic from restart
+  orthogonal box = (0 0 0) to (34.4544 34.4544 34.4544)
+  1 by 1 by 1 MPI processor grid
+  pair style eam/fs stores no restart info
+  3457 atoms
+  read_restart CPU = 0.00817204 secs
+pair_style      eam/fs
+pair_coeff      * * ../Fe_mm.eam.fs Fe
+Reading potential file ../Fe_mm.eam.fs with DATE: 2007-06-11
+min_style cg
+minimize 1e-9 1e-9 5000 5000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (../min.cpp:168)
+Unused restart file peratom fix info:
+  fix style: STORE, fix ID: msd_COMPUTE_STORE
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 5.214 | 5.214 | 5.214 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   50000    681.33743    -13920.61            0   -13616.241   -1496.8505 
+   50048    681.33743   -14241.801            0   -13937.432   -20640.538 
+Loop time of 0.624008 on 1 procs for 48 steps with 3457 atoms
+
+97.2% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         -13920.609795     -14241.8010337     -14241.8010451
+  Force two-norm initial, final = 72.9635 0.0160324
+  Force max component initial, final = 3.3688 0.00476854
+  Final line search alpha, max atom move = 1 0.00476854
+  Iterations, force evaluations = 48 87
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.61249    | 0.61249    | 0.61249    |   0.0 | 98.15
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0029039  | 0.0029039  | 0.0029039  |   0.0 |  0.47
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.008616   |            |       |  1.38
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7075 ave 7075 max 7075 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    241156 ave 241156 max 241156 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 241156
+Ave neighs/atom = 69.7588
+Neighbor list builds = 0
+Dangerous builds = 0
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Per MPI rank memory allocation (min/avg/max) = 4.09 | 4.09 | 4.09 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   50048    681.33743   -14241.801            0   -13937.432   -20640.538 
+Loop time of 0 on 1 procs for 0 steps with 3457 atoms
+
+0.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0          |            |       |  0.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7290 ave 7290 max 7290 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 235167
+Ave neighs/atom = 68.0263
+Neighbor list builds = 0
+Dangerous builds = 0
+compute cna all cna/atom 3.45
+compute 2 all reduce sum c_cna
+thermo_style    custom step temp pe c_2
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+  (2) compute cna/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 4.919 | 4.919 | 4.919 Mbytes
+Step Temp PotEng c_2 
+   50048    681.33743   -14241.801        10407 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3457 atoms
+
+209.7% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7290 ave 7290 max 7290 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+#------------------------------------------------
+variable cnat atom "c_cna != 3.0"
+group sia_surround variable cnat
+18 atoms in group sia_surround
+compute comV sia_surround com
+# compute un_x sia_surround property/atom xu
+# compute med_xu sia_surround reduce ave xu
+# compute med_x sia_surround reduce ave x
+# variable med_xu equal c_med_xu
+# variable med_x equal c_med_xu
+variable comX equal c_comV[1]
+variable comY equal c_comV[2]
+variable comZ equal c_comV[3]
+variable time equal ${time_step}/1000
+variable time equal 50000/1000
+fix useless all print 1 "${time};${comX};${comY};${comZ};" file "useless" screen no title ''
+run 1
+Per MPI rank memory allocation (min/avg/max) = 7.635 | 7.635 | 7.635 Mbytes
+Step Temp PotEng c_2 
+   50048    681.33743   -14241.801        10407 
+   50049    681.33743   -14241.801        10407 
+Loop time of 0.0309789 on 1 procs for 1 steps with 3457 atoms
+
+Performance: 2.789 ns/day, 8.605 hours/ns, 32.280 timesteps/s
+91.3% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.007453   | 0.007453   | 0.007453   |   0.0 | 24.06
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 5.6982e-05 | 5.6982e-05 | 5.6982e-05 |   0.0 |  0.18
+Output  | 0.023363   | 0.023363   | 0.023363   |   0.0 | 75.42
+Modify  | 9.2745e-05 | 9.2745e-05 | 9.2745e-05 |   0.0 |  0.30
+Other   |            | 1.311e-05  |            |       |  0.04
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7290 ave 7290 max 7290 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+print "${time};${comX};${comY};${comZ}" append coords/coords_$t
+print "${time};${comX};${comY};${comZ}" append coords/coords_700
+50;8.61588408948387;20.0970448705566;25.8460835646731
+clear
+next i
+jump restart_to_data.lmp
+# -var l 2.8712 -var t 7100.0
+#------------------------------------------------
+shell mkdir coords
+WARNING: Shell command 'mkdir' failed with error 'File exists' (../input.cpp:1292)
+#------------------------------------------------
+variable i loop 10000 #число рестартов
+variable time_step equal 10000*$i
+variable time_step equal 10000*6
+#------------------------------------------------
+read_restart ./restarts/$t/${time_step}
+read_restart ./restarts/700/${time_step}
+read_restart ./restarts/700/60000
+  restoring atom style atomic from restart
+  orthogonal box = (0 0 0) to (34.4544 34.4544 34.4544)
+  1 by 1 by 1 MPI processor grid
+  pair style eam/fs stores no restart info
+  3457 atoms
+  read_restart CPU = 0.00740099 secs
+pair_style      eam/fs
+pair_coeff      * * ../Fe_mm.eam.fs Fe
+Reading potential file ../Fe_mm.eam.fs with DATE: 2007-06-11
+min_style cg
+minimize 1e-9 1e-9 5000 5000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (../min.cpp:168)
+Unused restart file peratom fix info:
+  fix style: STORE, fix ID: msd_COMPUTE_STORE
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 5.211 | 5.211 | 5.211 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   60000    684.51209   -13922.028            0   -13616.241   -1914.7376 
+   60046    684.51209   -14241.801            0   -13936.014    -20603.67 
+Loop time of 0.665115 on 1 procs for 46 steps with 3457 atoms
+
+90.2% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -13922.0279106     -14241.8010311     -14241.8010431
+  Force two-norm initial, final = 71.5607 0.0156211
+  Force max component initial, final = 2.88265 0.00398038
+  Final line search alpha, max atom move = 1 0.00398038
+  Iterations, force evaluations = 46 83
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.65597    | 0.65597    | 0.65597    |   0.0 | 98.62
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0028727  | 0.0028727  | 0.0028727  |   0.0 |  0.43
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.006273   |            |       |  0.94
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7000 ave 7000 max 7000 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    241244 ave 241244 max 241244 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 241244
+Ave neighs/atom = 69.7842
+Neighbor list builds = 0
+Dangerous builds = 0
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Per MPI rank memory allocation (min/avg/max) = 4.088 | 4.088 | 4.088 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   60046    684.51209   -14241.801            0   -13936.014    -20603.67 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3457 atoms
+
+104.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7288 ave 7288 max 7288 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 235167
+Ave neighs/atom = 68.0263
+Neighbor list builds = 0
+Dangerous builds = 0
+compute cna all cna/atom 3.45
+compute 2 all reduce sum c_cna
+thermo_style    custom step temp pe c_2
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+  (2) compute cna/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 4.917 | 4.917 | 4.917 Mbytes
+Step Temp PotEng c_2 
+   60046    684.51209   -14241.801        10407 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3457 atoms
+
+104.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7288 ave 7288 max 7288 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+#------------------------------------------------
+variable cnat atom "c_cna != 3.0"
+group sia_surround variable cnat
+18 atoms in group sia_surround
+compute comV sia_surround com
+# compute un_x sia_surround property/atom xu
+# compute med_xu sia_surround reduce ave xu
+# compute med_x sia_surround reduce ave x
+# variable med_xu equal c_med_xu
+# variable med_x equal c_med_xu
+variable comX equal c_comV[1]
+variable comY equal c_comV[2]
+variable comZ equal c_comV[3]
+variable time equal ${time_step}/1000
+variable time equal 60000/1000
+fix useless all print 1 "${time};${comX};${comY};${comZ};" file "useless" screen no title ''
+run 1
+Per MPI rank memory allocation (min/avg/max) = 7.633 | 7.633 | 7.633 Mbytes
+Step Temp PotEng c_2 
+   60046    684.51209   -14241.801        10407 
+   60047    684.51209   -14241.801        10407 
+Loop time of 0.022959 on 1 procs for 1 steps with 3457 atoms
+
+Performance: 3.763 ns/day, 6.377 hours/ns, 43.556 timesteps/s
+99.1% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0065939  | 0.0065939  | 0.0065939  |   0.0 | 28.72
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 3.6955e-05 | 3.6955e-05 | 3.6955e-05 |   0.0 |  0.16
+Output  | 0.016243   | 0.016243   | 0.016243   |   0.0 | 70.75
+Modify  | 7.4863e-05 | 7.4863e-05 | 7.4863e-05 |   0.0 |  0.33
+Other   |            | 1.025e-05  |            |       |  0.04
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7288 ave 7288 max 7288 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+print "${time};${comX};${comY};${comZ}" append coords/coords_$t
+print "${time};${comX};${comY};${comZ}" append coords/coords_700
+60;5.74529906251616;20.0969937035044;11.4892721274987
+clear
+next i
+jump restart_to_data.lmp
+# -var l 2.8712 -var t 7100.0
+#------------------------------------------------
+shell mkdir coords
+WARNING: Shell command 'mkdir' failed with error 'File exists' (../input.cpp:1292)
+#------------------------------------------------
+variable i loop 10000 #число рестартов
+variable time_step equal 10000*$i
+variable time_step equal 10000*7
+#------------------------------------------------
+read_restart ./restarts/$t/${time_step}
+read_restart ./restarts/700/${time_step}
+read_restart ./restarts/700/70000
+  restoring atom style atomic from restart
+  orthogonal box = (0 0 0) to (34.4544 34.4544 34.4544)
+  1 by 1 by 1 MPI processor grid
+  pair style eam/fs stores no restart info
+  3457 atoms
+  read_restart CPU = 0.00781012 secs
+pair_style      eam/fs
+pair_coeff      * * ../Fe_mm.eam.fs Fe
+Reading potential file ../Fe_mm.eam.fs with DATE: 2007-06-11
+min_style cg
+minimize 1e-9 1e-9 5000 5000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (../min.cpp:168)
+Unused restart file peratom fix info:
+  fix style: STORE, fix ID: msd_COMPUTE_STORE
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 5.216 | 5.216 | 5.216 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   70000    677.56019   -13918.921            0    -13616.24   -1742.5341 
+   70048    677.56019   -14241.801            0   -13939.119   -20684.626 
+Loop time of 0.672567 on 1 procs for 48 steps with 3457 atoms
+
+94.6% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -13918.9213769     -14241.8010484     -14241.8010595
+  Force two-norm initial, final = 72.3995 0.0128896
+  Force max component initial, final = 3.00792 0.00364907
+  Final line search alpha, max atom move = 1 0.00364907
+  Iterations, force evaluations = 48 89
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.66238    | 0.66238    | 0.66238    |   0.0 | 98.49
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.003042   | 0.003042   | 0.003042   |   0.0 |  0.45
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.007147   |            |       |  1.06
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7019 ave 7019 max 7019 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    241403 ave 241403 max 241403 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 241403
+Ave neighs/atom = 69.8302
+Neighbor list builds = 0
+Dangerous builds = 0
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Per MPI rank memory allocation (min/avg/max) = 4.093 | 4.093 | 4.093 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   70048    677.56019   -14241.801            0   -13939.119   -20684.626 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3457 atoms
+
+104.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7290 ave 7290 max 7290 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 235167
+Ave neighs/atom = 68.0263
+Neighbor list builds = 0
+Dangerous builds = 0
+compute cna all cna/atom 3.45
+compute 2 all reduce sum c_cna
+thermo_style    custom step temp pe c_2
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+  (2) compute cna/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 4.922 | 4.922 | 4.922 Mbytes
+Step Temp PotEng c_2 
+   70048    677.56019   -14241.801        10407 
+Loop time of 1.19209e-06 on 1 procs for 0 steps with 3457 atoms
+
+83.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 1.192e-06  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7290 ave 7290 max 7290 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+#------------------------------------------------
+variable cnat atom "c_cna != 3.0"
+group sia_surround variable cnat
+18 atoms in group sia_surround
+compute comV sia_surround com
+# compute un_x sia_surround property/atom xu
+# compute med_xu sia_surround reduce ave xu
+# compute med_x sia_surround reduce ave x
+# variable med_xu equal c_med_xu
+# variable med_x equal c_med_xu
+variable comX equal c_comV[1]
+variable comY equal c_comV[2]
+variable comZ equal c_comV[3]
+variable time equal ${time_step}/1000
+variable time equal 70000/1000
+fix useless all print 1 "${time};${comX};${comY};${comZ};" file "useless" screen no title ''
+run 1
+Per MPI rank memory allocation (min/avg/max) = 7.638 | 7.638 | 7.638 Mbytes
+Step Temp PotEng c_2 
+   70048    677.56019   -14241.801        10407 
+   70049    677.56019   -14241.801        10407 
+Loop time of 0.0367022 on 1 procs for 1 steps with 3457 atoms
+
+Performance: 2.354 ns/day, 10.195 hours/ns, 27.246 timesteps/s
+74.2% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0077982  | 0.0077982  | 0.0077982  |   0.0 | 21.25
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 5.4836e-05 | 5.4836e-05 | 5.4836e-05 |   0.0 |  0.15
+Output  | 0.028769   | 0.028769   | 0.028769   |   0.0 | 78.39
+Modify  | 6.485e-05  | 6.485e-05  | 6.485e-05  |   0.0 |  0.18
+Other   |            | 1.526e-05  |            |       |  0.04
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7290 ave 7290 max 7290 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+print "${time};${comX};${comY};${comZ}" append coords/coords_$t
+print "${time};${comX};${comY};${comZ}" append coords/coords_700
+70;7.18040751938262;18.6617910823222;4.30996822561597
+clear
+next i
+jump restart_to_data.lmp
+# -var l 2.8712 -var t 7100.0
+#------------------------------------------------
+shell mkdir coords
+WARNING: Shell command 'mkdir' failed with error 'File exists' (../input.cpp:1292)
+#------------------------------------------------
+variable i loop 10000 #число рестартов
+variable time_step equal 10000*$i
+variable time_step equal 10000*8
+#------------------------------------------------
+read_restart ./restarts/$t/${time_step}
+read_restart ./restarts/700/${time_step}
+read_restart ./restarts/700/80000
+  restoring atom style atomic from restart
+  orthogonal box = (0 0 0) to (34.4544 34.4544 34.4544)
+  1 by 1 by 1 MPI processor grid
+  pair style eam/fs stores no restart info
+  3457 atoms
+  read_restart CPU = 0.00745511 secs
+pair_style      eam/fs
+pair_coeff      * * ../Fe_mm.eam.fs Fe
+Reading potential file ../Fe_mm.eam.fs with DATE: 2007-06-11
+min_style cg
+minimize 1e-9 1e-9 5000 5000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (../min.cpp:168)
+Unused restart file peratom fix info:
+  fix style: STORE, fix ID: msd_COMPUTE_STORE
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 5.211 | 5.211 | 5.211 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   80000    676.87616   -13918.613            0   -13616.237   -1876.2042 
+   80047    676.87616   -14241.801            0   -13939.425   -20692.678 
+Loop time of 0.68318 on 1 procs for 47 steps with 3457 atoms
+
+90.6% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         -13918.613317     -14241.8010314     -14241.8010428
+  Force two-norm initial, final = 71.7823 0.0152709
+  Force max component initial, final = 2.59513 0.0048955
+  Final line search alpha, max atom move = 1 0.0048955
+  Iterations, force evaluations = 47 86
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.6731     | 0.6731     | 0.6731     |   0.0 | 98.52
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0033529  | 0.0033529  | 0.0033529  |   0.0 |  0.49
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.006725   |            |       |  0.98
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7014 ave 7014 max 7014 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    241169 ave 241169 max 241169 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 241169
+Ave neighs/atom = 69.7625
+Neighbor list builds = 0
+Dangerous builds = 0
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Per MPI rank memory allocation (min/avg/max) = 4.089 | 4.089 | 4.089 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   80047    676.87616   -14241.801            0   -13939.425   -20692.678 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3457 atoms
+
+104.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7288 ave 7288 max 7288 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 235167
+Ave neighs/atom = 68.0263
+Neighbor list builds = 0
+Dangerous builds = 0
+compute cna all cna/atom 3.45
+compute 2 all reduce sum c_cna
+thermo_style    custom step temp pe c_2
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+  (2) compute cna/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 4.917 | 4.917 | 4.917 Mbytes
+Step Temp PotEng c_2 
+   80047    676.87616   -14241.801        10407 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3457 atoms
+
+209.7% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7288 ave 7288 max 7288 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+#------------------------------------------------
+variable cnat atom "c_cna != 3.0"
+group sia_surround variable cnat
+18 atoms in group sia_surround
+compute comV sia_surround com
+# compute un_x sia_surround property/atom xu
+# compute med_xu sia_surround reduce ave xu
+# compute med_x sia_surround reduce ave x
+# variable med_xu equal c_med_xu
+# variable med_x equal c_med_xu
+variable comX equal c_comV[1]
+variable comY equal c_comV[2]
+variable comZ equal c_comV[3]
+variable time equal ${time_step}/1000
+variable time equal 80000/1000
+fix useless all print 1 "${time};${comX};${comY};${comZ};" file "useless" screen no title ''
+run 1
+Per MPI rank memory allocation (min/avg/max) = 7.633 | 7.633 | 7.633 Mbytes
+Step Temp PotEng c_2 
+   80047    676.87616   -14241.801        10407 
+   80048    676.87616   -14241.801        10407 
+Loop time of 0.039284 on 1 procs for 1 steps with 3457 atoms
+
+Performance: 2.199 ns/day, 10.912 hours/ns, 25.456 timesteps/s
+74.5% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.011762   | 0.011762   | 0.011762   |   0.0 | 29.94
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 7.7724e-05 | 7.7724e-05 | 7.7724e-05 |   0.0 |  0.20
+Output  | 0.02734    | 0.02734    | 0.02734    |   0.0 | 69.60
+Modify  | 7.7963e-05 | 7.7963e-05 | 7.7963e-05 |   0.0 |  0.20
+Other   |            | 2.623e-05  |            |       |  0.07
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7288 ave 7288 max 7288 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+print "${time};${comX};${comY};${comZ}" append coords/coords_$t
+print "${time};${comX};${comY};${comZ}" append coords/coords_700
+80;9.57529805172842;25.8376513174309;5.74508424464032
+clear
+next i
+jump restart_to_data.lmp
+# -var l 2.8712 -var t 7100.0
+#------------------------------------------------
+shell mkdir coords
+WARNING: Shell command 'mkdir' failed with error 'File exists' (../input.cpp:1292)
+#------------------------------------------------
+variable i loop 10000 #число рестартов
+variable time_step equal 10000*$i
+variable time_step equal 10000*9
+#------------------------------------------------
+read_restart ./restarts/$t/${time_step}
+read_restart ./restarts/700/${time_step}
+read_restart ./restarts/700/90000
+  restoring atom style atomic from restart
+  orthogonal box = (0 0 0) to (34.4544 34.4544 34.4544)
+  1 by 1 by 1 MPI processor grid
+  pair style eam/fs stores no restart info
+  3457 atoms
+  read_restart CPU = 0.00754309 secs
+pair_style      eam/fs
+pair_coeff      * * ../Fe_mm.eam.fs Fe
+Reading potential file ../Fe_mm.eam.fs with DATE: 2007-06-11
+min_style cg
+minimize 1e-9 1e-9 5000 5000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (../min.cpp:168)
+Unused restart file peratom fix info:
+  fix style: STORE, fix ID: msd_COMPUTE_STORE
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 5.213 | 5.213 | 5.213 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   90000    677.20074    -13918.76            0   -13616.238   -1408.3816 
+   90051    677.20074   -14241.801            0    -13939.28   -20688.772 
+Loop time of 0.737191 on 1 procs for 51 steps with 3457 atoms
+
+91.1% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         -13918.759588     -14241.8010361      -14241.801048
+  Force two-norm initial, final = 72.9985 0.0146392
+  Force max component initial, final = 3.04686 0.00546706
+  Final line search alpha, max atom move = 1 0.00546706
+  Iterations, force evaluations = 51 94
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.72647    | 0.72647    | 0.72647    |   0.0 | 98.55
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.003474   | 0.003474   | 0.003474   |   0.0 |  0.47
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.007246   |            |       |  0.98
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7051 ave 7051 max 7051 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    241206 ave 241206 max 241206 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 241206
+Ave neighs/atom = 69.7732
+Neighbor list builds = 0
+Dangerous builds = 0
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Per MPI rank memory allocation (min/avg/max) = 4.09 | 4.09 | 4.09 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   90051    677.20074   -14241.801            0    -13939.28   -20688.772 
+Loop time of 1.19209e-06 on 1 procs for 0 steps with 3457 atoms
+
+83.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 1.192e-06  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7292 ave 7292 max 7292 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 235167
+Ave neighs/atom = 68.0263
+Neighbor list builds = 0
+Dangerous builds = 0
+compute cna all cna/atom 3.45
+compute 2 all reduce sum c_cna
+thermo_style    custom step temp pe c_2
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+  (2) compute cna/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 4.918 | 4.918 | 4.918 Mbytes
+Step Temp PotEng c_2 
+   90051    677.20074   -14241.801        10407 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3457 atoms
+
+104.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7292 ave 7292 max 7292 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+#------------------------------------------------
+variable cnat atom "c_cna != 3.0"
+group sia_surround variable cnat
+18 atoms in group sia_surround
+compute comV sia_surround com
+# compute un_x sia_surround property/atom xu
+# compute med_xu sia_surround reduce ave xu
+# compute med_x sia_surround reduce ave x
+# variable med_xu equal c_med_xu
+# variable med_x equal c_med_xu
+variable comX equal c_comV[1]
+variable comY equal c_comV[2]
+variable comZ equal c_comV[3]
+variable time equal ${time_step}/1000
+variable time equal 90000/1000
+fix useless all print 1 "${time};${comX};${comY};${comZ};" file "useless" screen no title ''
+run 1
+Per MPI rank memory allocation (min/avg/max) = 7.634 | 7.634 | 7.634 Mbytes
+Step Temp PotEng c_2 
+   90051    677.20074   -14241.801        10407 
+   90052    677.20074   -14241.801        10407 
+Loop time of 0.035543 on 1 procs for 1 steps with 3457 atoms
+
+Performance: 2.431 ns/day, 9.873 hours/ns, 28.135 timesteps/s
+83.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.011023   | 0.011023   | 0.011023   |   0.0 | 31.01
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00017595 | 0.00017595 | 0.00017595 |   0.0 |  0.50
+Output  | 0.024213   | 0.024213   | 0.024213   |   0.0 | 68.12
+Modify  | 7.5102e-05 | 7.5102e-05 | 7.5102e-05 |   0.0 |  0.21
+Other   |            | 5.603e-05  |            |       |  0.16
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7292 ave 7292 max 7292 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+print "${time};${comX};${comY};${comZ}" append coords/coords_$t
+print "${time};${comX};${comY};${comZ}" append coords/coords_700
+90;2.87508332033239;22.9675480909291;2.8748630878688
+clear
+next i
+jump restart_to_data.lmp
+# -var l 2.8712 -var t 7100.0
+#------------------------------------------------
+shell mkdir coords
+WARNING: Shell command 'mkdir' failed with error 'File exists' (../input.cpp:1292)
+#------------------------------------------------
+variable i loop 10000 #число рестартов
+variable time_step equal 10000*$i
+variable time_step equal 10000*10
+#------------------------------------------------
+read_restart ./restarts/$t/${time_step}
+read_restart ./restarts/700/${time_step}
+read_restart ./restarts/700/100000
+  restoring atom style atomic from restart
+  orthogonal box = (0 0 0) to (34.4544 34.4544 34.4544)
+  1 by 1 by 1 MPI processor grid
+  pair style eam/fs stores no restart info
+  3457 atoms
+  read_restart CPU = 0.00770998 secs
+pair_style      eam/fs
+pair_coeff      * * ../Fe_mm.eam.fs Fe
+Reading potential file ../Fe_mm.eam.fs with DATE: 2007-06-11
+min_style cg
+minimize 1e-9 1e-9 5000 5000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (../min.cpp:168)
+Unused restart file peratom fix info:
+  fix style: STORE, fix ID: msd_COMPUTE_STORE
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 5.214 | 5.214 | 5.214 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+  100000    674.20536   -13917.421            0   -13616.238    -1539.725 
+  100057    674.20536   -14241.801            0   -13940.618   -20723.763 
+Loop time of 0.900092 on 1 procs for 57 steps with 3457 atoms
+
+91.5% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -13917.4205856     -14241.8010426     -14241.8010547
+  Force two-norm initial, final = 72.872 0.011585
+  Force max component initial, final = 3.262 0.0018094
+  Final line search alpha, max atom move = 1 0.0018094
+  Iterations, force evaluations = 57 105
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.88547    | 0.88547    | 0.88547    |   0.0 | 98.38
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0052125  | 0.0052125  | 0.0052125  |   0.0 |  0.58
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.009412   |            |       |  1.05
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    6999 ave 6999 max 6999 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    241306 ave 241306 max 241306 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 241306
+Ave neighs/atom = 69.8021
+Neighbor list builds = 0
+Dangerous builds = 0
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Per MPI rank memory allocation (min/avg/max) = 4.092 | 4.092 | 4.092 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+  100057    674.20536   -14241.801            0   -13940.618   -20723.763 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3457 atoms
+
+104.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7296 ave 7296 max 7296 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 235167
+Ave neighs/atom = 68.0263
+Neighbor list builds = 0
+Dangerous builds = 0
+compute cna all cna/atom 3.45
+compute 2 all reduce sum c_cna
+thermo_style    custom step temp pe c_2
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 10 10 10
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+  (2) compute cna/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 4.92 | 4.92 | 4.92 Mbytes
+Step Temp PotEng c_2 
+  100057    674.20536   -14241.801        10407 
+Loop time of 1.90735e-06 on 1 procs for 0 steps with 3457 atoms
+
+104.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 1.907e-06  |            |       |100.00
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7296 ave 7296 max 7296 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+#------------------------------------------------
+variable cnat atom "c_cna != 3.0"
+group sia_surround variable cnat
+18 atoms in group sia_surround
+compute comV sia_surround com
+# compute un_x sia_surround property/atom xu
+# compute med_xu sia_surround reduce ave xu
+# compute med_x sia_surround reduce ave x
+# variable med_xu equal c_med_xu
+# variable med_x equal c_med_xu
+variable comX equal c_comV[1]
+variable comY equal c_comV[2]
+variable comZ equal c_comV[3]
+variable time equal ${time_step}/1000
+variable time equal 100000/1000
+fix useless all print 1 "${time};${comX};${comY};${comZ};" file "useless" screen no title ''
+run 1
+Per MPI rank memory allocation (min/avg/max) = 7.637 | 7.637 | 7.637 Mbytes
+Step Temp PotEng c_2 
+  100057    674.20536   -14241.801        10407 
+  100058    674.20536   -14241.801        10407 
+Loop time of 0.0520439 on 1 procs for 1 steps with 3457 atoms
+
+Performance: 1.660 ns/day, 14.457 hours/ns, 19.215 timesteps/s
+73.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.015396   | 0.015396   | 0.015396   |   0.0 | 29.58
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 6.4135e-05 | 6.4135e-05 | 6.4135e-05 |   0.0 |  0.12
+Output  | 0.036481   | 0.036481   | 0.036481   |   0.0 | 70.10
+Modify  | 8.4877e-05 | 8.4877e-05 | 8.4877e-05 |   0.0 |  0.16
+Other   |            | 1.788e-05  |            |       |  0.03
+
+Nlocal:    3457 ave 3457 max 3457 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    7296 ave 7296 max 7296 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    235167 ave 235167 max 235167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  470334 ave 470334 max 470334 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 470334
+Ave neighs/atom = 136.053
+Neighbor list builds = 0
+Dangerous builds = 0
+print "${time};${comX};${comY};${comZ}" append coords/coords_$t
+print "${time};${comX};${comY};${comZ}" append coords/coords_700
+100;7.18044352117626;21.5287175345222;30.1532735884082
+clear
+next i
+jump restart_to_data.lmp
+# -var l 2.8712 -var t 7100.0
+#------------------------------------------------
+shell mkdir coords
+WARNING: Shell command 'mkdir' failed with error 'File exists' (../input.cpp:1292)
+#------------------------------------------------
+variable i loop 10000 #число рестартов
+variable time_step equal 10000*$i
+variable time_step equal 10000*11
+#------------------------------------------------
+read_restart ./restarts/$t/${time_step}
+read_restart ./restarts/700/${time_step}
+read_restart ./restarts/700/110000
+ERROR on proc 0: Cannot open restart file ./restarts/700/110000 (../read_restart.cpp:143)
+Last command: read_restart ./restarts/$t/${time_step}
