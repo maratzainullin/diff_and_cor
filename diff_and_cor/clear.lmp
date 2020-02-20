@@ -1,0 +1,41 @@
+# -l none -var l 2.8712 -var t 700
+#------------------------------------------------
+shell mkdir diff_data
+shell mkdir diff_data/$t
+shell mkdir restarts
+shell mkdir restarts/$t
+#------------------------------------------------
+variable cell_size equal 10
+variable total_time equal 1 #ps
+variable total_timesteps equal ${total_time}/dt
+# variable msd_freq equal ${total_timesteps}/10000
+# variable thermo_freq equal ${total_timesteps}/10000
+units           metal
+boundary        p p p
+atom_style      atomic
+#------------------------------------------------
+lattice         bcc $l
+region          box block 0 ${cell_size} 0 ${cell_size} 0 ${cell_size}
+create_box      1 box
+create_atoms    1 box
+mass            1 55.845
+#------------------------------------------------
+pair_style      eam/fs
+pair_coeff      * * ../Fe_mm.eam.fs Fe
+#------------------------------------------------
+min_style cg
+minimize 1e-9 1e-9 5000 5000
+run 0
+reset_timestep 0
+#------------------------------------------------
+velocity        all create $(2*v_t) 352839
+timestep 0.001
+fix             1 all nve
+#------------------------------------------------
+
+dump		d0 all custom 1000 dump/clear_${cell_size}.dump x y z 
+restart 1000 ./restarts/$t/*
+thermo_style custom time temp press
+thermo 1000
+run ${total_timesteps}
+#------------------------------------------------

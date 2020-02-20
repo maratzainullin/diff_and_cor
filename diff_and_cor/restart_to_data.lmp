@@ -22,18 +22,25 @@ variable cnat atom "c_cna != 3.0"
 group sia_surround variable cnat
 dump		after_min_sia sia_surround custom 1 dump/$iafter_min_sia.dump x y z c_cna
 compute comV sia_surround com
+
 compute xu sia_surround property/atom xu
 compute med_xu sia_surround reduce ave c_xu
 compute med_x sia_surround reduce ave x
+thermo_style custom step temp pe c_comV[1] c_med_xu c_med_x
+run 0
 variable med_xu equal c_med_xu
 variable med_x equal c_med_x
+
 variable comX equal c_comV[1]
 variable comY equal c_comV[2]
 variable comZ equal c_comV[3]
 variable time equal ${time_step}/1000
 variable ts equal time
-fix useless all print 1 "${ts};${time};${comX};${med_x};${med_xu};${comY};${comZ};" append "useless" screen no title ''
-run 0
+#dump		after_min_local all local 1 dump/$ilocal_after_min.dump c_comV[1] c_med_x c_med_xu
+# fix useless all print 1 "${ts};${time};${comX};${med_x};${med_xu};${comY};${comZ};" append "useless" screen no title ''
+# run 2
+# print "${ts};${time};${comX};${med_x};${med_xu};${comY};${comZ}" append coords/coords_$t
+print "${time};${comX};${med_xu};${med_x};${comY};${comZ}" append coords/coords_$t
 #print "${ts};${time};${comX};${med_x};${med_xu};${comY};${comZ}" append coords/coords_$t
 clear
 next i

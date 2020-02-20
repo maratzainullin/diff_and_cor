@@ -4,5 +4,126 @@ LAMMPS (7 Aug 2019)
 shell mkdir diff_data
 WARNING: Shell command 'mkdir' failed with error 'File exists' (../input.cpp:1292)
 shell mkdir diff_data/$t
-ERROR on proc 0: Substitution for illegal variable t (../input.cpp:553)
-Last command: shell mkdir diff_data/$t
+shell mkdir diff_data/700
+WARNING: Shell command 'mkdir' failed with error 'File exists' (../input.cpp:1292)
+shell mkdir restarts
+WARNING: Shell command 'mkdir' failed with error 'File exists' (../input.cpp:1292)
+shell mkdir restarts/$t
+shell mkdir restarts/700
+#------------------------------------------------
+variable cell_size equal 10
+variable total_time equal 100 #ps
+variable total_timesteps equal ${total_time}/dt
+variable total_timesteps equal 100/dt
+# variable msd_freq equal ${total_timesteps}/10000
+# variable thermo_freq equal ${total_timesteps}/10000
+units           metal
+boundary        p p p
+atom_style      atomic
+#------------------------------------------------
+lattice         bcc $l
+lattice         bcc 2.8712
+Lattice spacing in x,y,z = 2.8712 2.8712 2.8712
+region          box block 0 ${cell_size} 0 ${cell_size} 0 ${cell_size}
+region          box block 0 10 0 ${cell_size} 0 ${cell_size}
+region          box block 0 10 0 10 0 ${cell_size}
+region          box block 0 10 0 10 0 10
+create_box      1 box
+Created orthogonal box = (0 0 0) to (28.712 28.712 28.712)
+  1 by 1 by 1 MPI processor grid
+create_atoms    1 box
+Created 2000 atoms
+  create_atoms CPU = 0.000706911 secs
+mass            1 55.845
+#------------------------------------------------
+pair_style      eam/fs
+pair_coeff      * * ../Fe_mm.eam.fs Fe
+Reading potential file ../Fe_mm.eam.fs with DATE: 2007-06-11
+#------------------------------------------------
+create_atoms 1 single 5.5 5.333 5.333
+Created 1 atoms
+  create_atoms CPU = 1.50204e-05 secs
+#------------------------------------------------
+min_style cg
+minimize 1e-9 1e-9 5000 5000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (../min.cpp:168)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.3
+  ghost atom cutoff = 7.3
+  binsize = 3.65, bins = 8 8 8
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 5.065 | 5.065 | 5.065 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -7770.1528            0   -7770.1528    7358.1514 
+      32            0   -8242.1437            0   -8242.1437   -28132.672 
+Loop time of 0.232747 on 1 procs for 32 steps with 2001 atoms
+
+97.6% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -7770.15281992     -8242.14369318     -8242.14370111
+  Force two-norm initial, final = 3352.39 0.012844
+  Force max component initial, final = 1678.5 0.00404577
+  Final line search alpha, max atom move = 1 0.00404577
+  Iterations, force evaluations = 32 57
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.22502    | 0.22502    | 0.22502    |   0.0 | 96.68
+Neigh   | 0.0034711  | 0.0034711  | 0.0034711  |   0.0 |  1.49
+Comm    | 0.0015442  | 0.0015442  | 0.0015442  |   0.0 |  0.66
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.002713   |            |       |  1.17
+
+Nlocal:    2001 ave 2001 max 2001 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    5471 ave 5471 max 5471 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    136153 ave 136153 max 136153 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 136153
+Ave neighs/atom = 68.0425
+Neighbor list builds = 1
+Dangerous builds = 0
+run 0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:52)
+Per MPI rank memory allocation (min/avg/max) = 3.94 | 3.94 | 3.94 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+      32            0   -8242.1437            0   -8242.1437   -28132.672 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 2001 atoms
+
+104.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    2001 ave 2001 max 2001 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    5471 ave 5471 max 5471 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    136159 ave 136159 max 136159 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 136159
+Ave neighs/atom = 68.0455
+Neighbor list builds = 0
+Dangerous builds = 0
