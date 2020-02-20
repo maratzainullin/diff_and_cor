@@ -33,8 +33,7 @@ timestep 0.001
 fix             1 all nve
 #------------------------------------------------
 
-dump		d0 all custom 1000 dump/clear_${cell_size}.dump x y z 
-restart 1000 ./restarts/$t/*
+dump		d0 all custom 1000 dump/clear_${cell_size}.dump x y z
 thermo_style custom time temp press
 thermo 1000
 run ${total_timesteps}

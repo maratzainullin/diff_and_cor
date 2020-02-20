@@ -46,7 +46,7 @@ file ./diff_data/$t/thermo_data screen no title 'time;temp;press'
 
 fix msd_data all print 1000 '${time};${sia_msd}' &
 file ./diff_data/$t/msd_data screen no title 'time;sia_msd'
-dump		d0 all custom 1000 dump/sia.dump x y z c_cna
+dump		d0 all custom 1000 dump/sia_$t.dump x y z
 restart 1000 ./restarts/$t/*
 thermo_style custom time temp press
 thermo 1000
