@@ -5,7 +5,7 @@ shell mkdir diff_data/$t
 shell mkdir restarts
 shell mkdir restarts/$t
 #------------------------------------------------
-variable cell_size equal 12
+variable cell_size equal 10
 variable total_time equal 100 #ps
 variable total_timesteps equal ${total_time}/dt
 # variable msd_freq equal ${total_timesteps}/10000
@@ -46,9 +46,9 @@ file ./diff_data/$t/thermo_data screen no title 'time;temp;press'
 
 fix msd_data all print 1000 '${time};${sia_msd}' &
 file ./diff_data/$t/msd_data screen no title 'time;sia_msd'
-dump		d0 all custom 1000 sia.dump x y z c_cna
-restart 10000 ./restarts/$t/*
+dump		d0 all custom 1000 dump/sia.dump x y z c_cna
+restart 1000 ./restarts/$t/*
 thermo_style custom time temp press
-thermo 10000
+thermo 1000
 run ${total_timesteps}
 #------------------------------------------------
