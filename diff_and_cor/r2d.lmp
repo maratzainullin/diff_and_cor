@@ -25,14 +25,21 @@ dump		after_min_sia sia_surround custom 1 ./data/dumps_$t/surr_sia.dump x y z
 dump_modify after_min_sia append yes
 
 compute comV sia_surround com
-thermo_style custom step temp pe c_comV[1] c_comV[2] c_comV[3]
+# compute med_x sia_surround reduce ave x
+# compute med_y sia_surround reduce ave y
+# compute med_z sia_surround reduce ave z
+thermo_style custom step temp pe c_comV[1] c_comV[2] c_comV[3] # c_med_x c_med_y c_med_z
 run 0
 variable comX equal c_comV[1]
 variable comY equal c_comV[2]
 variable comZ equal c_comV[3]
+# variable med_x equal c_med_x
+# variable med_y equal c_med_y
+# variable med_z equal c_med_z
 variable time equal ${time_step}/1000
 variable ts equal time
 print "${time};${comX};${comY};${comZ}" append ./data/other_$t/coords
+# print "${time};${med_x};${med_y};${med_z}" append ./data/other_$t/unw_coords
 clear
 shell rm ./data/restarts_$t/${time_step}
 next i
