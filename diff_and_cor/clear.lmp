@@ -1,9 +1,5 @@
 # -l none -var l 2.8712 -var t 700
 #------------------------------------------------
-shell mkdir diff_data
-shell mkdir diff_data/$t
-shell mkdir restarts
-shell mkdir restarts/$t
 #------------------------------------------------
 variable cell_size equal 10
 variable total_time equal 1 #ps
@@ -33,7 +29,7 @@ timestep 0.001
 fix             1 all nve
 #------------------------------------------------
 
-dump		d0 all custom 1000 dump/clear_${cell_size}.dump x y z
+dump		d0 all custom 1000 dump/clear_$t.dump x y z
 thermo_style custom time temp press
 thermo 1000
 run ${total_timesteps}

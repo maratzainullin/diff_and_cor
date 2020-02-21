@@ -1,15 +1,13 @@
 # -l none -var l 2.8712 -var t 700
 #------------------------------------------------
-shell mkdir diff_data
-shell mkdir diff_data/$t
-shell mkdir restarts
-shell mkdir restarts/$t
+shell mkdir data
+shell mkdir data/dumps_$t
+shell mkdir data/restarts_$t
+shell mkdir data/other_$t
 #------------------------------------------------
 variable cell_size equal 10
 variable total_time equal 100 #ps
 variable total_timesteps equal ${total_time}/dt
-# variable msd_freq equal ${total_timesteps}/10000
-# variable thermo_freq equal ${total_timesteps}/10000
 units           metal
 boundary        p p p
 atom_style      atomic
@@ -27,28 +25,25 @@ create_atoms 1 single 5.5 5.333 5.333
 #------------------------------------------------
 min_style cg
 minimize 1e-9 1e-9 5000 5000
-run 0
-reset_timestep 0
 #------------------------------------------------
 velocity        all create $(2*v_t) 352839
-timestep 0.001
 fix             1 all nve
+run 1000
+reset_timestep 0
 #------------------------------------------------
 compute msd all msd
-compute cna all cna/atom 3.45
 variable n equal count(all)
 variable time equal time
 variable temp equal temp
 variable press equal press
 variable sia_msd equal c_msd[4]*$n
-fix thermo_data all print 1000 '${time};${temp};${press}' &
-file ./diff_data/$t/thermo_data screen no title 'time;temp;press'
+fix data all print 1000 '${time};${sia_msd};${temp};${press}' &
+file ./data/other_$t/thermo_diff screen no title 'time;sia_msd;temp;press'
 
-fix msd_data all print 1000 '${time};${sia_msd}' &
-file ./diff_data/$t/msd_data screen no title 'time;sia_msd'
-dump		d0 all custom 1000 dump/sia_$t.dump x y z
-restart 1000 ./restarts/$t/*
+dump sia_dump all custom 1000 ./data/dumps_$t/sia.dump x y z
+write_restart ./data/restarts_$t/0
+restart 1000 ./data/restarts_$t/*
 thermo_style custom time temp press
-thermo 1000
+thermo 10000
 run ${total_timesteps}
 #------------------------------------------------
