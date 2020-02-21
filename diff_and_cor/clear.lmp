@@ -1,11 +1,11 @@
-# -l none -var l 2.8712 -var t 700
+# -var l 2.8712 -var t 700
+# -var l 2.8947 -var t 1300
+# -var l 2.9151 -var t 1700
 #------------------------------------------------
-#------------------------------------------------
+log ./data/logs/log_clear
 variable cell_size equal 10
 variable total_time equal 1 #ps
 variable total_timesteps equal ${total_time}/dt
-# variable msd_freq equal ${total_timesteps}/10000
-# variable thermo_freq equal ${total_timesteps}/10000
 units           metal
 boundary        p p p
 atom_style      atomic
@@ -28,8 +28,7 @@ velocity        all create $(2*v_t) 352839
 timestep 0.001
 fix             1 all nve
 #------------------------------------------------
-
-dump		d0 all custom 1000 dump/clear_$t.dump x y z
+dump		d0 all custom 1000 ./data/dumps_$t/clear_$t.dump x y z
 thermo_style custom time temp press
 thermo 1000
 run ${total_timesteps}
