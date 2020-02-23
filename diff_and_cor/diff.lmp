@@ -3,12 +3,12 @@
 # -var l 2.9151 -var t 1700
 #------------------------------------------------
 
-shell mkdir data
-shell mkdir ./data/dumps_$t
-shell mkdir ./data/restarts_$t
-shell mkdir ./data/other_$t
-shell mkdir ./data/logs
-log ./data/logs/diff_$t
+shell mkdir data_$t
+shell mkdir ./data_$t/dumps
+shell mkdir ./data_$t/restarts
+shell mkdir ./data_$t/other
+shell mkdir ./data_$t/logs
+log ./data_$t/logs/diff
 #------------------------------------------------
 variable cell_size equal 10
 variable total_time equal 100 #ps
@@ -43,11 +43,11 @@ variable temp equal temp
 variable press equal press
 variable sia_msd equal c_msd[4]*$n
 fix data all print 1000 '${time};${sia_msd};${temp};${press}' &
-file ./data/other_$t/thermo_diff screen no title 'time;sia_msd;temp;press'
+file ./data_$t/other/thermo_diff screen no title 'time;sia_msd;temp;press'
 
-dump sia_dump all custom 1000 ./data/dumps_$t/sia.dump x y z
-write_restart ./data/restarts_$t/0
-restart 1000 ./data/restarts_$t/*
+dump sia_dump all custom 1000 ./data_$t/dumps/sia.dump x y z
+write_restart ./data_$t/restarts/0
+restart 1000 ./data_$t/restarts/*
 thermo_style custom time temp press
 thermo 10000
 run ${total_timesteps}

@@ -6,10 +6,10 @@ variable i loop 0 10000 #число рестартов
 variable time_step equal 1000*$i
 variable time_step_previous equal 1000*$i-1000
 # shell rm ./data/restarts_$t/${time_step_previous}
-shell while [ ! -f ./data/restarts_$t/${time_step} ]; do sleep 0.5; done  #ждет, пока не создастся след рестарт
+shell while [ ! -f ./data_$t/restarts/${time_step} ]; do sleep 0.5; done  #ждет, пока не создастся след рестарт
 # variable time_step_previous equal 1000*$i-1000
 #------------------------------------------------
-read_restart ./data/restarts_$t/${time_step}
+read_restart ./data_$t/restarts/${time_step}
 pair_style      eam/fs
 pair_coeff      * * ../Fe_mm.eam.fs Fe
 min_style cg
@@ -21,7 +21,7 @@ run 0
 #------------------------------------------------
 variable cnat atom "c_cna != 3.0"
 group sia_surround variable cnat
-dump		after_min_sia sia_surround custom 1 ./data/dumps_$t/surr_sia.dump x y z
+dump		after_min_sia sia_surround custom 1 ./data_$t/dumps/surr_sia.dump x y z
 dump_modify after_min_sia append yes
 
 compute comV sia_surround com
@@ -38,9 +38,9 @@ variable comZ equal c_comV[3]
 # variable med_z equal c_med_z
 variable time equal ${time_step}/1000
 variable ts equal time
-print "${time};${comX};${comY};${comZ}" append ./data/other_$t/coords
+print "${time};${comX};${comY};${comZ}" append ./data_$t/other/coords
 # print "${time};${med_x};${med_y};${med_z}" append ./data/other_$t/unw_coords
 clear
-shell rm ./data/restarts_$t/${time_step}
+shell rm ./data_$t/restarts/${time_step}
 next i
 jump r2d.lmp
