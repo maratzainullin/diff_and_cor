@@ -1,11 +1,11 @@
 # -var cell 10 -var lattice 2.9151 -var temp 1700 -var simtime 50000 (ps)
-#python3.7 wsa.py 10 2.9151 1700 50000
+# python3.7 wsa.py 10 2.9151 1700 50000
 from ovito.io import *
 from ovito.data import *
 from ovito.modifiers import *
 from ovito.pipeline import *
 import numpy as np
-#from progress.bar import IncrementalBar
+# from progress.bar import IncrementalBar
 import sys
 import os
 cell = sys.argv[1]
@@ -32,7 +32,7 @@ with open(f'{output_path}/ws_coords_unwraped', 'w') as file:
         data = pipeline.compute(frame)
         string = f'{data.particles.positions[0][0]} {data.particles.positions[0][1]} {data.particles.positions[0][2]} \n'
         file.write(f'{frame} {data.particles.count} {string}')
-        #bar.next()
+        # bar.next()
 
-#bar.finish()
+# bar.finish()
 os.system(f'python3.7 diff_coef_comp.py {cell} {lattice} {temp} {simtime}')
