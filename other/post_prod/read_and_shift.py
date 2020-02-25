@@ -12,9 +12,9 @@ def read_table(file_name):
     with open(file_name, 'r') as file:
         for line in file.readlines():
             time.append(float(line.split(';')[0]))
-            x_coord.append(float(line.split(';')[1]))
-            y_coord.append(float(line.split(';')[2]))
-            z_coord.append(float(line.split(';')[3][:-1]))
+            x_coord.append(float(line.split(';')[2]))
+            y_coord.append(float(line.split(';')[3]))
+            z_coord.append(float(line.split(';')[4][:-1]))
     return [time, x_coord, y_coord, z_coord]
 
 def shift_coords(list_coord, L, a):
@@ -85,7 +85,7 @@ duration_of_part = int(sys.argv[3])
 # lattice_lenght = int(input())
 # temp = input()
 
-size_of_sell = 12
+size_of_sell = 10
 # lattice_lenght = 2.8712
 data = read_table('./coords/coords_' + temp)
 
