@@ -3,7 +3,10 @@ from numpy import mean
 import sys
 import matplotlib
 import matplotlib.pyplot as plt
-temp = sys.argv[1]
+cell = sys.argv[1]
+lattice = sys.argv[2]
+temp = sys.argv[3]
+simtime = sys.argv[4]
 
 def read_table(file_name):
     time = []
@@ -25,11 +28,11 @@ def plot_conv(start, end, step):
     ax.plot(x[start:end],y[start:end])
     ax.set(xlabel='Duration of part (ps)', ylabel='Diff coed (Ang^2/ps)', title='plot_diff_coef_' + temp)
     ax.grid()
-    fig.savefig('./results/plot_diff_coef_' +str(start)+'-'+str(end)+'per'+str(step)+'_' + temp + '_.png')
+    fig.savefig('../results/plot_diff_coef_' +str(start)+'-'+str(end)+'per'+str(step)+'_' + temp + '_.png')
     return mean(y[start:end])
 
 def make_conv_table(step):
-    with open('./results/table_diff_coef_' + temp, 'w') as file:
+    with open('../results/table_diff_coef_' + temp, 'w') as file:
         x = []
         y = []
         for i in range(5,1000,step):
@@ -55,14 +58,13 @@ def diff_coef(duration_of_part, total_time=50000, restart_step=1, hist='no'):
         fig, ax = plt.subplots()
         n_bins = len(diff_coef_list)
         ax.hist(diff_coef_list/mean(diff_coef_list), bins=n_bins)
-        fig.savefig('./results/diff_coef_distr_'+temp)
+        fig.savefig('../results/diff_coef_distr_'+temp)
     return mean(diff_coef_list)
 
-data = read_table('./ws_data_output/ws_' + temp + '_coords_unwraped')
+data = read_table(f'../data_cell{cell}_time{simtime}/data_{temp}/ws_coords_unwraped')
 x_coord = data[1]
 y_coord = data[2]
 z_coord = data[3]
 
 print(plot_conv(100, 200, 1))
 diff_coef(100,hist='yes')
-#print(plot_conv(5, 2000, 1))
