@@ -8,7 +8,7 @@ shell while [ ! -f ${output_path}/${current_step} ]; do sleep 0.5; done
 #------------------------------------------------
 read_restart ${output_path}/${current_step}
 pair_style      eam/fs
-pair_coeff      * * ../other/Fe_mm.eam.fs Fe
+pair_coeff      * * ../../other/Fe_mm.eam.fs Fe
 min_style cg
 minimize 1e-9 1e-9 5000 5000
 compute cna all cna/atom 3.45

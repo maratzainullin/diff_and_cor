@@ -15,7 +15,7 @@ create_atoms    1 box
 mass            1 55.845
 #------------------------------------------------
 pair_style      eam/fs
-pair_coeff      * * ../other/Fe_mm.eam.fs Fe
+pair_coeff      * * ../../other/Fe_mm.eam.fs Fe
 #------------------------------------------------
 dump            clear_dump all custom 1 ${output_path}/clear.dump x y z
 run 0

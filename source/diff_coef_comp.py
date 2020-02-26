@@ -4,9 +4,8 @@ import sys
 import matplotlib
 import matplotlib.pyplot as plt
 cell = sys.argv[1]
-lattice = sys.argv[2]
+simtime = sys.argv[2]
 temp = sys.argv[3]
-simtime = sys.argv[4]
 
 
 def read_table(file_name):
