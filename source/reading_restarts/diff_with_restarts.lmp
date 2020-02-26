@@ -1,6 +1,6 @@
 # -var cell 10 -var lattice 2.9151 -var temp 1700 -var simtime 50000 -screen none
 #------------------------------------------------
-variable output_path string ../Data/cell.${cell}.time.${simtime}/temp.${temp}
+variable output_path string ../../Data/cell.${cell}.time.${simtime}/temp.${temp}
 log ${output_path}/diff.log
 #------------------------------------------------
 variable        total_timesteps equal ${simtime}/dt
@@ -46,6 +46,8 @@ fix data all print 1000 '${time};${sia_msd};${sim_temp};${press}' &
 file ${output_path}/thermo_msd.txt screen no title 'time;sia_msd;temp;press'
 
 dump sia_dump all custom 1000 ${output_path}/sia.dump x y z
+write_restart ${output_path}/0
+restart 1000 ${output_path}/*
 thermo_style custom time temp press v_sia_msd
 thermo 1000
 run ${total_timesteps}

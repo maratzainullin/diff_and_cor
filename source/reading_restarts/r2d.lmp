@@ -1,13 +1,12 @@
-# -var cell 10 -var lattice 2.9151 -var temp 1700 -var simtime 50000 (ps) -screen none
+# -var cell 10 -var lattice 2.9151 -var temp 1700 -var simtime 50000 -screen none
 #------------------------------------------------
 log none
 variable i loop 0 ${simtime}
-variable dumps_path string ../data_cell${cell}_time${simtime}/data_${temp}/dumps
-variable other_path string ../data_cell${cell}_time${simtime}/data_${temp}
+variable output_path string ../../Data/cell.${cell}.time.${simtime}/temp.${temp}
 variable current_step equal 1000*$i
-shell while [ ! -f ${other_path}/${current_step} ]; do sleep 0.5; done
+shell while [ ! -f ${output_path}/${current_step} ]; do sleep 0.5; done
 #------------------------------------------------
-read_restart ${other_path}/${current_step}
+read_restart ${output_path}/${current_step}
 pair_style      eam/fs
 pair_coeff      * * ../other/Fe_mm.eam.fs Fe
 min_style cg
@@ -19,10 +18,10 @@ run 0
 #------------------------------------------------
 variable cnat atom "c_cna != 3.0"
 group sia_surround variable cnat
-dump		after_min_sia sia_surround custom 1 ${dumps_path}/surr_sia.dump x y z
+dump		after_min_sia sia_surround custom 1 ${output_path}/surr_sia.dump x y z
 dump_modify after_min_sia append yes
 run 0
 clear
-shell rm ${other_path}/${current_step}
+shell rm ${output_path}/${current_step}
 next i
 jump r2d.lmp
