@@ -1,9 +1,0 @@
-LAMMPS (7 Aug 2019)
-# -var cell 10 -var lattice 2.9151 -var temp 1700 -var simtime 50000 -screen none
-#------------------------------------------------
-variable output_path string ../Data/cell.${cell}.time.${simtime}/temp.${temp}
-variable output_path string ../Data/cell.10.time.${simtime}/temp.${temp}
-variable output_path string ../Data/cell.10.time.100/temp.${temp}
-variable output_path string ../Data/cell.10.time.100/temp.900
-log ${output_path}/diff.log
-log ../Data/cell.10.time.100/temp.900/diff.log
