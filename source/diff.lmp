@@ -33,6 +33,7 @@ fix 3 all press/berendsen iso 0 0 100
 run 500000
 unfix 2
 unfix 3
+reset_timestep 0
 #------------------------------------------------
 timestep 0.001
 compute msd all msd
