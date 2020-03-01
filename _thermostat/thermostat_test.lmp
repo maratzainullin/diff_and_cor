@@ -1,0 +1,59 @@
+# -var cell 10 -var lattice 2.9151 -var temp 1700 -var simtime 50000 -screen none
+#------------------------------------------------
+variable tstep equal 0.001
+variable cell equal 10
+variable lattice equal 2.88
+variable simtime equal 100
+variable temp equal 900
+units           metal
+boundary        p p p
+atom_style      atomic
+#------------------------------------------------
+lattice         bcc ${lattice}
+region          box block 0 ${cell} 0 ${cell} 0 ${cell}
+create_box      1 box
+create_atoms    1 box
+mass            1 55.845
+#------------------------------------------------
+pair_style      eam/fs
+pair_coeff      * * ../other/Fe_mm.eam.fs Fe
+#------------------------------------------------
+create_atoms    1 single 5.5 5.3 5.3
+#------------------------------------------------
+min_style       cg
+minimize        1e-9 1e-9 5000 5000
+thermo_style custom time temp press vol
+thermo 100
+#------------------------------------------------
+velocity        all create $(2*v_temp) 352839 mom yes rot yes
+variable time equal time
+variable sim_temp equal temp
+variable press equal press
+run 0
+reset_timestep 0
+fix data all print 100 '${time};${sim_temp};${press}' &
+file ./Data/${cell}.${simtime}.${temp}.data &
+screen no title 'time;temp;press'
+
+fix             microcan all nve
+run 500
+unfix microcan
+
+fix thermostat all temp/rescale 10 ${temp} ${temp} 1 1.0
+
+
+
+fix barostat all nph iso ${press} 0 100
+run 15500
+unfix thermostat
+unfix barostat
+
+fix 1 all nve
+#------------------------------------------------
+timestep ${tstep}
+variable total_timesteps equal ${simtime}/dt
+
+
+dump sia_dump all custom 1000 ./Data/${cell}.${simtime}.${temp}.sia.dump x y z
+run ${total_timesteps}
+#------------------------------------------------
