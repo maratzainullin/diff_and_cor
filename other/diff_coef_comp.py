@@ -7,6 +7,8 @@ cell = sys.argv[1]
 simtime = sys.argv[2]
 temp = sys.argv[3]
 
+dumps_path = f'../Data/cell.{cell}.time.{simtime}/temp.{temp}'
+output_path = f'../Results/cell.{cell}.time.{simtime}/temp.{temp}'
 
 def read_table(file_name):
     time = []
@@ -29,12 +31,12 @@ def plot_conv(start, end, step):
     ax.plot(x[start:end], y[start:end])
     ax.set(xlabel='Duration of part (ps)', ylabel='Diff coed (Ang^2/ps)', title='plot_diff_coef_' + temp)
     ax.grid()
-    fig.savefig('../results/plot_diff_coef_' +str(start)+'-'+str(end)+'per'+str(step)+'_' + temp + '_.png')
+    fig.savefig(f'{output_path}/conv.{start}-{end}.png')
     return mean(y[start:end])
 
 
 def make_conv_table(step):
-    with open('../results/table_diff_coef_' + temp, 'w') as file:
+    with open(f'{output_path}/dif_coef_table.txt', 'w') as file:
         x = []
         y = []
         for i in range(5, 1000, step):
@@ -53,7 +55,7 @@ def radius_square(i, k):
 # lamda radius_square i,k:(x_coord[(i+1)*k]-x_coord[i*k]) ** 2 + (y_coord[(i+1)*k]-y_coord[i*k]) ** 2 + (z_coord[(i+1)*k]-z_coord[i*k]) ** 2
 
 
-def diff_coef(duration_of_part, total_time=50000, restart_step=1, hist='no'):
+def diff_coef(duration_of_part, total_time=25000, restart_step=1, hist='no'):
     diff_coef_list = []
     number_of_part = total_time//duration_of_part
     for i in range(number_of_part):
@@ -62,13 +64,13 @@ def diff_coef(duration_of_part, total_time=50000, restart_step=1, hist='no'):
         diff_coef_list.append(D)
     if hist == 'yes':
         fig, ax = plt.subplots()
-        n_bins = len(diff_coef_list)
+        n_bins = len(diff_coef_list)//10
         ax.hist(diff_coef_list/mean(diff_coef_list), bins=n_bins)
-        fig.savefig('../results/diff_coef_distr_'+temp)
+        fig.savefig(f'{output_path}/hist.png')
     return mean(diff_coef_list)
 
 
-data = read_table(f'../data_cell{cell}_time{simtime}/data_{temp}/ws_coords_unwraped')
+data = read_table(f'{output_path}/coords_unwraped.txt')
 x_coord = data[1]
 y_coord = data[2]
 z_coord = data[3]

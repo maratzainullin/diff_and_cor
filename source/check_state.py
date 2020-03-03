@@ -5,13 +5,8 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 
-temp = sys.argv[1]
 cell = 20
-simtime = 500
-
-input_file = f'./Data/{cell}.{simtime}.{temp}.data'
-output_file = f'./Results/{cell}.{simtime}.{temp}.'
-
+simtime = 1000000
 
 
 def add_titlebox(ax, text):
@@ -23,7 +18,7 @@ def add_titlebox(ax, text):
     return ax
 
 
-def do_anal(x, y, z, output_file, s=0):
+def make_plot(x, y, z, output_file, s=0):
     y_std = y[s:].std()
     z_std = z[s:].std()
     y_mean = y[s:].mean()
@@ -45,8 +40,19 @@ def do_anal(x, y, z, output_file, s=0):
     plt.show()
 
 
-data = np.genfromtxt(input_file, delimiter=';', skip_header=1)
-temp = np.array(data[:, 1])
-press = np.array(data[:, 2])
-print(f'{temp[500:].mean()}±{temp[500:].std()}, {press[500:].mean()}±{press[500:].std()}')
-#do_anal(data[:, 0], temp, press, output_file, s=500)
+def analysis(temp):
+    input_path = f'../Data/cell.{cell}.time.{simtime}/temp.{temp}/'
+    output_path = f'../Results/cell.{cell}.time.{simtime}/temp.{temp}/'
+    data = np.genfromtxt(f'{input_path}thermo_msd.txt',
+                         delimiter=';', names=True)
+    time = np.array(data['time'])
+    msd = np.array(data['sia_msd'])
+    temp = np.array(data['temp'])
+    press = np.array(data['press'])
+    a, b = np.polyfit(time, msd, 1)
+    print(a/6, b, time[-1])
+    print(f'{temp.mean()}±{temp.std()}, {press.mean()}±{press.std()}\n')
+
+
+for temp in (700, 900, 1100, 1300):
+    analysis(temp)

@@ -5,19 +5,20 @@ from ovito.data import *
 from ovito.modifiers import *
 from ovito.pipeline import *
 import numpy as np
-# from progress.bar import IncrementalBar
 import sys
 import os
+
+
 cell = sys.argv[1]
-lattice = sys.argv[2]
-temp = sys.argv[3]
-simtime = sys.argv[4]
-dumps_path = f'../data_cell{cell}_time{simtime}/data_{temp}/dumps'
-# bar = IncrementalBar('Wait a minute', max = 50001)
+temp = sys.argv[2]
+simtime = sys.argv[3]
+dumps_path = f'../Data/cell.{cell}.time.{simtime}/temp.{temp}'
+output_path = f'../Results/cell.{cell}.time.{simtime}/temp.{temp}'
+
 pipeline = import_file(f'{dumps_path}/sia.dump')
 ws = WignerSeitzAnalysisModifier(
     per_type_occupancies = False,
-    affine_mapping = ReferenceConfigurationModifier.AffineMapping.Off)
+    affine_mapping = ReferenceConfigurationModifier.AffineMapping.ToReference)
 ws.reference = FileSource()
 ws.reference.load(f'{dumps_path}/clear.dump')
 
@@ -26,13 +27,12 @@ pipeline.modifiers.append(ExpressionSelectionModifier(expression = 'Occupancy ==
 pipeline.modifiers.append(DeleteSelectedModifier())
 pipeline.modifiers.append(UnwrapTrajectoriesModifier())
 
-output_path = f'../data_cell{cell}_time{simtime}/data_{temp}'
-with open(f'{output_path}/ws_coords_unwraped', 'w') as file:
+with open(f'{output_path}/coords_unwraped.txt', 'w') as file:
+    file.write('time;def_num;x;y;z\n')
     for frame in range(pipeline.source.num_frames):
         data = pipeline.compute(frame)
-        string = f'{data.particles.positions[0][0]} {data.particles.positions[0][1]} {data.particles.positions[0][2]} \n'
-        file.write(f'{frame} {data.particles.count} {string}')
-        # bar.next()
+        string = f'{data.particles.positions[0][0]};{data.particles.positions[0][1]};{data.particles.positions[0][2]}\n'
+        file.write(f'{frame};{data.particles.count};{string}')
 
-# bar.finish()
-os.system(f'python3.7 diff_coef_comp.py {cell} {lattice} {temp} {simtime}')
+
+# os.system(f'python3.7 diff_coef_comp.py {cell} {lattice} {temp} {simtime}')
