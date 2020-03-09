@@ -10,6 +10,10 @@ cell = 20
 simtime = 100000
 
 
+data_path = f'../Data/cell.{cell}.time.{simtime}/temp.{temp}'
+results_path = f'../Results/cell.{cell}.time.{simtime}/temp.{temp}'
+
+
 def plot_conv(start, end, step, x, y, z, results_path):
     time, diff_coef = make_conv_table(step, x, y, z, results_path)
     fig, ax = plt.subplots()
@@ -40,7 +44,7 @@ def radius_square(i, k, x, y, z):
            (z[(i+1)*k]-z[i*k]) ** 2
 
 
-def diff_coef(duration_of_part, x, y, z, results_path, total_time=25000, hist='no'):
+def diff_coef(duration_of_part, x, y, z, results_path, total_time=1088, hist='no'):
     diff_coef_list = []
     number_of_part = total_time//duration_of_part
     for i in range(number_of_part):
@@ -55,7 +59,16 @@ def diff_coef(duration_of_part, x, y, z, results_path, total_time=25000, hist='n
     return np.mean(diff_coef_list)
 
 
-results_path = f'../Results/cell.{cell}.time.{simtime}/temp.{temp}'
+def traced_diff_coef(input_path):
+    data = np.genfromtxt(f'{input_path}/thermo_msd.txt',
+                         delimiter=';', names=True)
+    time = np.array(data['time'])
+    msd = np.array(data['sia_msd'])
+    temp = np.array(data['temp'])
+    press = np.array(data['press'])
+    a, b = np.polyfit(time, msd, 1)
+    return (a/6, temp.mean(), press.mean(), temp.std(), press.std())
+
 
 data = np.genfromtxt(f'{results_path}/coords_unwraped.txt',
                      delimiter=';', names=True)
@@ -64,7 +77,24 @@ x_coords = np.array(data['x'])
 y_coords = np.array(data['y'])
 z_coords = np.array(data['z'])
 
-print(plot_conv(5, 500, 1, x_coords, y_coords, z_coords, results_path))
+wsa_diff = plot_conv(5, 500, 1, x_coords, y_coords, z_coords, results_path)
+thermo_data = traced_diff_coef(data_path)
+traced_diff = thermo_data[0]
+temp_mean = thermo_data[1]
+press_mean = thermo_data[2]
+print(f'WSA_diff = {wsa_diff};\n'
+    f'Traced_diff = {traced_diff};\n'
+    f'Corr_f = {traced_diff/wsa_diff};\n'
+    f'Temp = {temp_mean};\n'
+    f'Press = {temp_mean};\n')
 diff_coef(100, x_coords, y_coords, z_coords, results_path, hist='yes')
 diff_coef(500, x_coords, y_coords, z_coords, results_path, hist='yes')
 diff_coef(1000, x_coords, y_coords, z_coords, results_path, hist='yes')
+
+
+with open(f'{results_path}/diff_coef.txt', 'a') as file:
+    file.write(f'WSA_diff = {wsa_diff};\n'
+                f'Traced_diff = {traced_diff};\n'
+                f'Corr_f = {traced_diff/wsa_diff};\n'
+                f'Temp = {temp_mean};\n'
+                f'Press = {temp_mean};\n')

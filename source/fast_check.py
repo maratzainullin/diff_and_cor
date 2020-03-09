@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 cell = 20
-simtime = 1000000
+simtime = 100000
 
 
 def add_titlebox(ax, text):

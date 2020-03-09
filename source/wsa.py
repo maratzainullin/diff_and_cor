@@ -8,9 +8,11 @@ import sys
 import time
 
 
-temp = sys.argv[1]
 cell = 20
-simtime = 1000000
+simtime = 100000
+temp = sys.argv[1]
+
+
 dumps_path = f'../Data/cell.{cell}.time.{simtime}/temp.{temp}'
 output_path = f'../Results/cell.{cell}.time.{simtime}/temp.{temp}'
 
@@ -59,8 +61,8 @@ def write_results(output_path, pipeline):
         for frame in range(frames):
             data = pipeline.compute(frame)
             file.write(f'{frame};{data.particles.count};'
-                       f'{data.particles.positions[0][1]};'
                        f'{data.particles.positions[0][0]};'
+                       f'{data.particles.positions[0][1]};'
                        f'{data.particles.positions[0][2]}\n')
             bar.next()
     bar.finish()
