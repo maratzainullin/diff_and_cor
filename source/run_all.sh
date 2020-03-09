@@ -1,6 +1,6 @@
 #!/bin/sh
-C=$1
-ST=$2
+C=20
+ST=100000
 for T in 700 900 1100 1300
 do
 	mkdir -p ../slurm_out

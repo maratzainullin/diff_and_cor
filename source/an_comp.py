@@ -5,9 +5,9 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 
-cell = sys.argv[1]
-temp = sys.argv[2]
-simtime = sys.argv[3]
+temp = sys.argv[1]
+cell = 20
+simtime = 100000
 
 
 def plot_conv(start, end, step, x, y, z, results_path):
