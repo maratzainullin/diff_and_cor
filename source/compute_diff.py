@@ -44,7 +44,8 @@ def radius_square(i, k, x, y, z):
            (z[(i+1)*k]-z[i*k]) ** 2
 
 
-def diff_coef(duration_of_part, x, y, z, results_path, total_time=1088, hist='no'):
+def diff_coef(duration_of_part, x, y, z, results_path, hist='no'):
+    total_time = len(x) - 1
     diff_coef_list = []
     number_of_part = total_time//duration_of_part
     for i in range(number_of_part):
@@ -86,15 +87,14 @@ print(f'WSA_diff = {wsa_diff};\n'
     f'Traced_diff = {traced_diff};\n'
     f'Corr_f = {traced_diff/wsa_diff};\n'
     f'Temp = {temp_mean};\n'
-    f'Press = {temp_mean};\n')
-diff_coef(100, x_coords, y_coords, z_coords, results_path, hist='yes')
-diff_coef(500, x_coords, y_coords, z_coords, results_path, hist='yes')
-diff_coef(1000, x_coords, y_coords, z_coords, results_path, hist='yes')
-
-
-with open(f'{results_path}/diff_coef.txt', 'a') as file:
+    f'Press = {press_mean};\n')
+with open(f'../final_result.txt', 'a') as file:
     file.write(f'WSA_diff = {wsa_diff};\n'
                 f'Traced_diff = {traced_diff};\n'
                 f'Corr_f = {traced_diff/wsa_diff};\n'
                 f'Temp = {temp_mean};\n'
-                f'Press = {temp_mean};\n')
+                f'Press = {temp_mean};\n\n')
+
+diff_coef(100, x_coords, y_coords, z_coords, results_path, hist='yes')
+diff_coef(500, x_coords, y_coords, z_coords, results_path, hist='yes')
+diff_coef(1000, x_coords, y_coords, z_coords, results_path, hist='yes')
