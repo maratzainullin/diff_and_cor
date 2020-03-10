@@ -83,17 +83,9 @@ thermo_data = traced_diff_coef(data_path)
 traced_diff = thermo_data[0]
 temp_mean = thermo_data[1]
 press_mean = thermo_data[2]
-print(f'WSA_diff = {wsa_diff};\n'
-    f'Traced_diff = {traced_diff};\n'
-    f'Corr_f = {traced_diff/wsa_diff};\n'
-    f'Temp = {temp_mean};\n'
-    f'Press = {press_mean};\n')
+
 with open(f'../final_result.txt', 'a') as file:
-    file.write(f'WSA_diff = {wsa_diff};\n'
-                f'Traced_diff = {traced_diff};\n'
-                f'Corr_f = {traced_diff/wsa_diff};\n'
-                f'Temp = {temp_mean};\n'
-                f'Press = {temp_mean};\n\n')
+    file.write(f'{temp_mean};{press_mean};{wsa_diff};{traced_diff};{traced_diff/wsa_diff}\n')
 
 diff_coef(100, x_coords, y_coords, z_coords, results_path, hist='yes')
 diff_coef(500, x_coords, y_coords, z_coords, results_path, hist='yes')
