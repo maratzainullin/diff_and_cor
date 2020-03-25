@@ -1,0 +1,45 @@
+log none
+# -v cell 10 -v temp 1700
+#------------------------------------------------
+variable output_path string ../Data/cell.${cell}/temp.${temp}
+#------------------------------------------------
+variable lattice equal 2.88
+units           metal
+boundary        p p p
+atom_style      atomic
+#------------------------------------------------
+lattice         bcc ${lattice}
+region          box block 0 ${cell} 0 ${cell} 0 ${cell}
+create_box      1 box
+create_atoms    1 box
+
+#------------------------------------------------
+pair_style      eam/fs
+pair_coeff      * * ../other/Fe_mm.eam.fs Fe
+#------------------------------------------------
+dump            equil_dump all custom 1 ${output_path}/equil.dump x y z
+run 0
+create_atoms    1 single 5.5 5.25 5.25
+#------------------------------------------------
+min_style       cg
+minimize        1e-9 1e-9 5000 5000
+#------------------------------------------------
+velocity        all create $(2*v_temp) 352839 mom yes rot yes
+fix 1 all nve
+fix 2 all temp/rescale 100 ${temp} ${temp} 1 1.0
+fix 3 all press/berendsen iso 800 800 100
+timestep 0.001
+variable time equal time
+variable sim_temp equal temp
+variable press equal press
+fix data all print 100 '${time};${sim_temp};${press}' &
+file ${output_path}/thermo_equil.txt screen no title 'time;temp;press'
+thermo_style custom time temp press vol
+thermo 100
+run 10000
+reset_timestep 0
+write_restart ${output_path}/restart.equil
+run 0
+unfix 2
+unfix 3
+unfix data
