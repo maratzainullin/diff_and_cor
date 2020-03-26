@@ -13,7 +13,6 @@ lattice         bcc ${lattice}
 region          box block 0 ${cell} 0 ${cell} 0 ${cell}
 create_box      1 box
 create_atoms    1 box
-mass            1 55.845
 #------------------------------------------------
 pair_style      eam/fs
 pair_coeff      * * ../other/Fe_mm.eam.fs Fe

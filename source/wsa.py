@@ -3,7 +3,7 @@ from ovito.data import *
 from ovito.modifiers import *
 from ovito.pipeline import *
 import numpy as np
-from progress.bar import IncrementalBar
+# from progress.bar import IncrementalBar
 import sys
 import time
 
@@ -55,7 +55,7 @@ def write_results(output_path, pipeline):
     print('Computing and writing coordinates...')
     start = time.time()
     frames = pipeline.source.num_frames
-    bar = IncrementalBar('zZzZz...', max = frames)
+    # bar = IncrementalBar('zZzZz...', max = frames)
     with open(f'{output_path}/coords_unwraped.txt', 'w') as file:
         file.write('time;def_num;x;y;z\n')
         for frame in range(frames):
@@ -64,8 +64,8 @@ def write_results(output_path, pipeline):
                        f'{data.particles.positions[0][0]};'
                        f'{data.particles.positions[0][1]};'
                        f'{data.particles.positions[0][2]}\n')
-            bar.next()
-    bar.finish()
+            # bar.next()
+    # bar.finish()
     finish = time.time()
     print(f'Computing time = {finish - start}')
 
